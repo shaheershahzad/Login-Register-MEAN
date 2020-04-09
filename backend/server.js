@@ -1,11 +1,22 @@
 "use strict"
+const authRoutes = require("./auth/auth.routes");
 const express = require("express");
-const app = express();
+const properties = require("./config/properties");
+const DB = require("./config/db");
 
-// Settings -> Configuración del servidor
-app.set("port", process.env.PORT || 3000);
+// Init MongoDB
+DB();
+
+const app = express();
+const router = express.Router();
+
+router.get("/", (req,  res){
+    res.send("Hello from home");
+});
+
+app.use(router);
 
 // Starting the server
-app.listen(app.get("port"), () => {
-    console.log("Server on port", app.get("port"));
+app.listen(properties.PORT, () => {
+    console.log("Server on port", properties.PORT);
 });
