@@ -10,7 +10,17 @@ DB();
 const app = express();
 const router = express.Router();
 
-router.get("/", (req,  res){
+const bodyParser = require("body-parser");
+const bodyParserJSON = bodyParser.json();
+const bodyParserURLEncoded = bodyParser.urlencoded({ extended: true });
+
+app.use(bodyParserJSON);
+app.use(bodyParserURLEncoded);
+
+app.use("/api", router);
+authRoutes(router);
+
+router.get("/", (req,  res) => {
     res.send("Hello from home");
 });
 

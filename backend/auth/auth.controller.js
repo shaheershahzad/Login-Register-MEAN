@@ -12,7 +12,7 @@ exports.createUser = (req, res, next) => {
 
     User.create(newUser, (err, user) => {
         if(err){
-            return res.status(500).send("Server error");
+            return res.status(500).send("Server error"+err);
         }
 
         const expiresIn = 24*60*60;
@@ -37,7 +37,8 @@ exports.loginUser = (req, res, next) => {
         email: userData.email
     }, (err, user) => {
         if(err){
-            return res.status(500).send("Server error");
+            console.log(err);
+            return res.status(500).send("Server error"+err);
         }
 
         if(!user){
